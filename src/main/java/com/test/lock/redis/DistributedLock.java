@@ -11,7 +11,9 @@ import java.util.Collections;
 @Component
 public class DistributedLock {
 
-    private final  String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+    private final String SCRIPT = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+
+    private final Long UNLOCK_RESULT = 1L;
 
     /**
      * @param jedis redis client
@@ -35,9 +37,8 @@ public class DistributedLock {
      * @throws Exception
      */
     public boolean unlock(Jedis jedis, String key, String requestId) throws Exception{
-        Object result = jedis.eval(script, Collections.singletonList(key), Collections.singletonList(requestId));
-        Long a = 1L;
-        if(a.equals(result))
+        Object result = jedis.eval(SCRIPT, Collections.singletonList(key), Collections.singletonList(requestId));
+        if(UNLOCK_RESULT.equals(result))
             return Boolean.TRUE;
         return Boolean.FALSE;
     }
