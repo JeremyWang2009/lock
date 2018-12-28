@@ -49,6 +49,10 @@ public class RedisDisLock {
         return Boolean.FALSE;
     }
 
+    /**
+     * generate unique request id by thread id
+     * @return
+     */
     private String generateRequestId() {
         return uuid.toString() + ":" + Thread.currentThread().getId();
     }
