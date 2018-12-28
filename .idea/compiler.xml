@@ -9,8 +9,8 @@
         <module name="lock" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="lock" target="1.5" />
+    <bytecodeTargetLevel target="8">
+      <module name="lock" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
